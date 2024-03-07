@@ -47,7 +47,8 @@ $ docker compose up -d
 ## Configuration
 
 - Edit the port numbers, user/org details, and database config for InfluxDB in the `.env` file.
-    > For `DOCKER_INFLUXDB_INIT_ADMIN_TOKEN`, run `openssl rand hex -32` in Terminal to generate a token.
+
+  > For `DOCKER_INFLUXDB_INIT_ADMIN_TOKEN`, run `openssl rand hex -32` in Terminal to generate a token.
 - Edit the input and output plugins of Telegraf by editing the configuration file `telegraf.conf`.
 
 ## Contributing
