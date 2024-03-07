@@ -1,0 +1,38 @@
+version: '3.8'
+name: [STACK_NAME]
+services:
+  grafana:
+    image: grafana/grafana-oss:main
+    container_name: grafana
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    depends_on:
+      - influxdb
+    restart: unless-stopped
+
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    env_file: ./.env
+    ports:
+      - '${DOCKER_INFLUXDB_INIT_PORT}:${DOCKER_INFLUXDB_INIT_PORT}'
+    volumes:
+      - influxdb-storage:/var/lib/influxdb2
+    restart: unless-stopped
+
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf
+    env_file: ./.env
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    depends_on:
+      - influxdb
+    restart: unless-stopped
+
+
+volumes:
+  grafana-storage:
+  influxdb-storage:
